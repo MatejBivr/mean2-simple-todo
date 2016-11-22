@@ -34,7 +34,8 @@ router.get('/todo/:id', function (req, res, next) {
 
 router.post('/todo', function (req, res, next) {
 	var todo = req.body;
-	if(!todo.text || !(todo.isCompleted)+''){
+
+	if(!todo.text || !((todo.isCompleted)+'')){
 		res.status(400);
 		res.json({
 			'error': 'invalid data'
@@ -55,6 +56,7 @@ router.post('/todo', function (req, res, next) {
 router.put('/todo/:id', function (req, res, next) {
 	var todo = req.body;
 	var updObj = {};
+	console.log(todo);
 
 	if(todo.isCompleted){
 		updObj.isCompleted = todo.isCompleted; 

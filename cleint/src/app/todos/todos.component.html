@@ -1,0 +1,32 @@
+<div class="add-todo-form text-xs-center">
+	<h1>Add Todo</h1>
+	<div class="form-group">
+		<input type="text" placeholder="Add todo..." class="form-control input-lg" #todoText>
+		<br>
+		<button class="btn btn-success btn-block"(click)="addTodo($event,todoText)">Create</button>
+	</div>	
+</div>
+
+<div class="todo-list">
+	<div class="alert alert-info text-xs-center" [hidden]="todos.length > 0">
+		<h1>No Todos</h1>		
+	</div>
+	<div *ngFor="let todo of todos">
+		<div class="todos-container row">
+			<div class="col-md-1">
+				<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
+			</div>
+			<div class="col-md-7">
+				<span [class.hidden]="todo.isEditMode">{{todo.text}}</span>
+
+				<input [class.hidden]="!todo.isEditMode" type="text" value="{{todo.text}}"(keypress)="updateTodoText($event,todo)">
+
+				<input [class.hidden]="!todo.isEditMode" type="button" value="cancel"(click)="setEditState(todo,false)" class="btn btn-warning">
+			</div>
+			<div class="col-md-4">
+				<input type="button" class="btn btn-danger" value="Delete"(click)="deleteTodo(todo)">
+				<input [class.disabled]="todo.isCompleted" type="button" class="btn btn-default" value="Edit" (click)="setEditState(todo,true)">
+			</div>
+		</div>
+	</div>
+</div>
